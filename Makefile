@@ -7,7 +7,7 @@ LIBFT_DIR	=	./libft
 
 # Mandatory Variables #
 PS_MAIN	= srcs/main.c
-SRCS	=
+SRCS	= srcs/*.c
 INC		=	-I. -I$(LIBFT_DIR)
 CHECKER_SRC =
 
@@ -36,25 +36,25 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(SRCS)
-			@ $(CC) $(D_FLAG) $(CFLAG) $(SRCS) $(LIBFT) $(INC) -o push_swap
+	@ $(CC) $(D_FLAG) $(CFLAG) $(SRCS) $(LIBFT) $(INC) -o push_swap
 
 checker: $(LIBFT) $(SRCS)
-			@ $(CC) $(D_FLAG) $(CFLAG) $(CHECKER_SRC) $(SRCS) -o checker
+	@ $(CC) $(D_FLAG) $(CFLAG) $(CHECKER_SRC) $(SRCS) -o checker
 
 $(LIBFT):
-			@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
+	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
 
 clean:
-			@ $(RM) $(NAME)
-			@printf "$(_INFO) push_swap removed.\n"
+	@ $(RM) $(NAME)
+	@printf "$(_INFO) push_swap removed.\n"
 
 clean_checker:
-			rm ./checker
+	rm ./checker
 
 fclean:
-			@ $(MAKE) fclean -C $(LIBFT_DIR)
-			@ $(RM) $(NAME)
-			@printf "$(_INFO) push_swap removed.\n"
+	@ $(MAKE) fclean -C $(LIBFT_DIR)
+	@ $(RM) $(NAME)
+	@printf "$(_INFO) push_swap removed.\n"
 
 re: fclean all
 
@@ -65,5 +65,8 @@ bonus:		mandatory
 
 m : mandatory
 b : bonus
+
+norm:
+	norminette $(SRCS) $(INC)
 
 .PHONY: all clean fclean re mandatory m bonus b
