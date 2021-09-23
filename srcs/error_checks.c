@@ -1,68 +1,50 @@
 #include "../push_swap.h"
 
-int	check_string_duplicates(char *str)
-{
-	size_t i;
-	size_t j;
-	int count;
-
-	i = 0;
-	while (i < ft_strlen(str))
-	{
-		count = 1;
-		j = i + 1;
-		while (j < ft_strlen(str))
-		{
-			if (str[i] == str[j] && str[i] != ' ')
-			{
-				count++;
-				str[j] = '\0';
-			}
-			j++;
-		}
-		i++;
-	}
-	if (count > 1 && str[i] != '\0')
-		return (1);
-	return (0);
-}
-
-int	are_there_duplicates(char **argv)
+int	is_duplicate(int *array, int size)
 {
 	int	i;
 	int	j;
 
-	i = 1;
-	j = i + 1;
-	while (*argv)
+	i = 0;
+	while (i < size)
 	{
-		if (ft_strcmp(argv[i], "0") == 0 || ft_strcmp(argv[i], "-0") == 0)
+		j = i + 1;
+		while (j < size)
 		{
-			if (ft_strcmp(argv[j], "0") == 0 || ft_strcmp(argv[j], "-0") == 0)
+			if (array[i] == array[j])
 				return (1);
+			j++;
 		}
-		if (check_string_duplicates(*argv) == 1)
-				return (1);
-		j++;
 		i++;
 	}
 	return (0);
 }
 
-int	digit_bigger_than_min_max_int(char **argv)
+int	duplicate_validation(char **args, int size)
 {
+	int	*array;
 	int	i;
+	int	f;
 
-	i = 1;
-	while (*argv[i])
-	{
-		if (ft_strlen(argv[i]) > 2)
-		{
-			if (ft_atoi(argv[i]) == 0 || ft_atoi(argv[i]) == -1)
-				return (1);
-		}
-		i++;
-	}
+	array = malloc(sizeof(int) * size);
+	i = -1;
+	while (++i < size)
+		array[i] = ft_atoi(args[i]);
+	f = 0;
+	if (is_duplicate(array, size))
+		f = 1;
+	free (array);
+	return (f);
+}
+
+int	digit_bigger_than_min_max_int(char *argv)
+{
+	if (argv[0] == '-' && (ft_strlen(argv) > 11 || (ft_strlen(argv) == 11
+				&& ft_memcmp(argv, "-2147483648", 11) > 0)))
+		return (1);
+	if (argv[0] != '-' && ((ft_strlen(argv) == 10
+				&& ft_memcmp(argv, "2147483647", 11) > 0) || ft_strlen(argv) > 10))
+		return (1);
 	return (0);
 }
 
@@ -74,34 +56,23 @@ int	digit_bigger_than_min_max_int(char **argv)
 ** all arguments must be numbers written with digits;
 */
 
-int	error_handling(int argc, char **argv)
+int	error_handling(int size, char **argv)
 {
 	int	i;
-	int j;
 
-	i = 1;
-	j = 0;
-	if (argc < 2)
+	i = -1;
+	if (size < 1)
 		ft_exit_ps("Wrong number of arguments.\nPlease use: ./push_swap \"list of numbers\"\n", -1);
-	if (ft_isstringalpha(argv[i]) == 1)
-		ft_exit_ps("Numbers have to be a digit\n", -1);
-	while (argv[i] != NULL)
+	while (++i < size)
 	{
-		while (argv[i][j] != '\0')
-		{
-			if ((argv[i][j] == '-' || argv[i][j] == '+') && !ft_isdigit(argv[i][++j]))
-				return (-1);
-			if (ft_isstringdigit(argv[i]) == 1)
-				{
-					if (are_there_duplicates(argv) == 1)
-						ft_exit_ps("There cannot be duplicate numbers\n", -1);
-					return (0);
-				}
-			j++;
-		}
-		i++;
+		/* 		if ((ft_strcmp(argv[i], "-") == 0 || ft_strcmp(argv[i], "+") == 0) && (ft_isstringdigit(argv[i+1]) == 0))
+				return (1); */
+		if (ft_isstringdigit(argv[i]) == 0)
+			ft_exit_ps("Numbers have to be a digit\n", -1);
+		if (digit_bigger_than_min_max_int(argv[i]) == 1)
+			ft_exit_ps("Numbers out of integer range\n", -1);
 	}
-	if (digit_bigger_than_min_max_int(argv) == 1)
-		ft_exit_ps("Numbers out of integer range\n", -1);
+	if (duplicate_validation(argv, size) != 0)
+			ft_exit_ps("There cannot be duplicate numbers\n", -1);
 	return (0);
 }

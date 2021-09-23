@@ -12,11 +12,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	j = 1;
 
-	while (i < argc)
-	{
-		if (error_handling(argc, argv) == -1)
-			ft_exit_ps("Error\n", -1);
-		i++;
-	}
+	if (error_handling(argc - 1, argv + 1) == 1)
+		ft_exit_ps("Error\n", -1);
 	printf("Passed error handling\n");
 }
