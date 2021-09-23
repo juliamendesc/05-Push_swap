@@ -70,7 +70,7 @@ int	error_handling(int size, char **argv)
 		if (digit_bigger_than_min_max_int(argv[i]) == 1)
 			ft_exit_ps("Numbers out of integer range\n", -1);
 	}
-	if (duplicate_validation(argv, size) != 0)
+	if (duplicate_validation(argv, size) == 1)
 			ft_exit_ps("There cannot be duplicate numbers\n", -1);
 	return (0);
 }
