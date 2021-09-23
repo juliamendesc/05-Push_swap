@@ -65,8 +65,6 @@ int	error_handling(int size, char **argv)
 		ft_exit_ps("Wrong number of arguments.\nPlease use: ./push_swap \"list of numbers\"\n", -1);
 	while (++i < size)
 	{
-		/* 		if ((ft_strcmp(argv[i], "-") == 0 || ft_strcmp(argv[i], "+") == 0) && (ft_isstringdigit(argv[i+1]) == 0))
-				return (1); */
 		if (ft_isstringdigit(argv[i]) == 0)
 			ft_exit_ps("Numbers have to be a digit\n", -1);
 		if (digit_bigger_than_min_max_int(argv[i]) == 1)
