@@ -11,13 +11,13 @@
 
 typedef struct s_stack
 {
-	int							number;
-	int							order;
-	struct s_stack	*next;
-}							t_stack;
+	int	numbers_a[500];
+}				t_stack;
 
 void	ft_exit_ps(char *arg, int err);
 void	ft_help(void);
 int	error_handling(int argc, char **argv);
+void	ft_fill_stack_a(int argc, char **argv, t_stack *stack);
+int	ft_A_is_sorted(int argc, t_stack *stack);
 
 #endif
