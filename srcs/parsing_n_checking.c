@@ -1,14 +1,14 @@
 #include "../push_swap.h"
 
-void	ft_fill_stack_a(int argc, char **argv, t_stack *stack)
+void	ft_fill_stack_a(int argc, char **argv, t_stack *stack_a)
 {
 	int	i;
 
 	i = 0;
-	stack->size = argc - 1;
-	while (i < stack->size)
+	stack_a->size = argc - 1;
+	while (i < stack_a->size)
 	{
-		stack->numbers_a[i] = ft_atoi(argv[i + 1]);
+		stack_a->numbers_a[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
 }
