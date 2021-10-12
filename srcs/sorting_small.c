@@ -28,3 +28,12 @@ void	ft_sort_three(t_stack *stack)
 		reverse_rotate(stack);
 	}
 }
+
+void ft_sort_four(t_stack *stack)
+{
+	while (stack->numbers_a[0] != 0)
+		rotate(stack);
+	push_to_b(stack);
+	ft_sort_three(stack);
+	push_to_a(stack);
+}

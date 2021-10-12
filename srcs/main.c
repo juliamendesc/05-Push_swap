@@ -12,6 +12,8 @@ int	main(int argc, char **argv)
 	{
 		if (argc - 1 == 3)
 		 	ft_sort_three(&stack);
+		else if (argc - 1 == 4)
+			ft_sort_four(&stack);
 		else
 			printf("main-not sorted\n");
 	}

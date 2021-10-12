@@ -61,6 +61,7 @@ void	push_to_a(t_stack *stack)
 		i++;
 	}
 	stack->numbers_b[i] = -1;
+	printf("\npush to a\n");
 }
 
 void	push_to_b(t_stack *stack)
@@ -82,4 +83,5 @@ void	push_to_b(t_stack *stack)
 		i++;
 	}
 	stack->numbers_a[i] = -1;
+	printf("\npush to b\n");
 }

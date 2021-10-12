@@ -26,6 +26,6 @@ void	reverse_rotate(t_stack *stack);
 void	push_to_a(t_stack *stack);
 void	push_to_b(t_stack *stack);
 void	ft_sort_three(t_stack *stack);
-void	init_stacks(t_stack *stack);
+void 	ft_sort_four(t_stack *stack);
 
 #endif
