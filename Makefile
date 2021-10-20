@@ -37,6 +37,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(SRCS)
 	@ $(CC) $(D_FLAG) $(CFLAG) $(SRCS) $(LIBFT) $(INC) -o push_swap
+	@printf "$(GREEN)push_swap created.\n"
 
 checker: $(LIBFT) $(SRCS)
 	@ $(CC) $(D_FLAG) $(CFLAG) $(CHECKER_SRC) $(SRCS) -o checker

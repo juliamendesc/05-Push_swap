@@ -1,15 +1,60 @@
-#include "../push_swap.h"
+#include "./push_swap.h"
 
-void	ft_help(void)
+int is_sorted(t_stacks *stack)
 {
-	ft_putstr_fd("Push_Swap: How to ...\n", 1);
-	ft_putstr_fd("To run the program, please use...\n", 1);
-	ft_putstr_fd("./push_swap \"Number sequence\"\n", 1);
+	t_stacks *current;
+
+	current = stack;
+	while (current->next)
+	{
+		if (current->number < current->next->number)
+			current = current->next;
+		else
+			return (0);
+	}
+	return (1);
 }
 
-void	ft_exit_ps(char *arg, int err)
+int get_min(t_stacks *stack)
 {
-	if (err != 0)
-		ft_putstr_fd(arg, 2);
-	exit(err);
+	t_stacks *current;
+	int trigger;
+	int min;
+
+	current = stack;
+	trigger = 1;
+	while (current)
+	{
+		if (trigger)
+		{
+			min = current->number;
+			trigger--;
+		}
+		else if (min > current->number)
+			min = current->number;
+		current = current->next;
+	}
+	return (min);
+}
+
+int get_max(t_stacks *stack)
+{
+	t_stacks *current;
+	int trigger;
+	int max;
+
+	current = stack;
+	trigger = 1;
+	while (current)
+	{
+		if (trigger)
+		{
+			max = current->number;
+			trigger--;
+		}
+		else if (max < current->number)
+			max = current->number;
+		current = current->next;
+	}
+	return (max);
 }

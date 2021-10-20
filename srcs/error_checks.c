@@ -1,9 +1,9 @@
-#include "../push_swap.h"
+#include "./push_swap.h"
 
-int	is_duplicate(int *array, int size)
+int is_duplicate(int *array, int size)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < size)
@@ -20,11 +20,11 @@ int	is_duplicate(int *array, int size)
 	return (0);
 }
 
-int	duplicate_validation(char **args, int size)
+int duplicate_validation(char **args, int size)
 {
-	int	*array;
-	int	i;
-	int	f;
+	int *array;
+	int i;
+	int f;
 
 	array = malloc(sizeof(int) * size);
 	i = -1;
@@ -33,7 +33,7 @@ int	duplicate_validation(char **args, int size)
 	f = 0;
 	if (is_duplicate(array, size))
 		f = 1;
-	free (array);
+	free(array);
 	return (f);
 }
 
@@ -45,21 +45,21 @@ int	duplicate_validation(char **args, int size)
 ** all arguments must be numbers written with digits;
 */
 
-int	error_handling(int size, char **argv)
+int error_handling(int size, char **argv)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	if (size < 1)
-		ft_exit_ps("Wrong number of arguments.\nPlease use: ./push_swap \"list of numbers\"\n", -1);
+		ft_exit_ps_simple("Wrong number of arguments.\nPlease use: ./push_swap \"list of numbers\"\n", -1);
 	while (++i < size)
 	{
 		if (ft_atoll(argv[i]) > 2147483647 || ft_atoll(argv[i]) < -2147483648)
-			ft_exit_ps("Numbers out of integer range\n", -1);
+			ft_exit_ps_simple("Numbers out of integer range\n", -1);
 		if (ft_isstringdigit(argv[i]) == 0)
-			ft_exit_ps("Numbers have to be a digit\n", -1);
+			ft_exit_ps_simple("Numbers have to be a digit\n", -1);
 	}
 	if (duplicate_validation(argv, size) == 1)
-			ft_exit_ps("There cannot be duplicate numbers\n", -1);
+		ft_exit_ps_simple("There cannot be duplicate numbers\n", -1);
 	return (0);
 }

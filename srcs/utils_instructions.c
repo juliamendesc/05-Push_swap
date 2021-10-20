@@ -1,0 +1,26 @@
+#include "./push_swap.h"
+
+void ft_help(void)
+{
+	ft_putstr_fd("Push_Swap: How to ...\n", 1);
+	ft_putstr_fd("To run the program, please use...\n", 1);
+	ft_putstr_fd("./push_swap \"Number sequence\"\n", 1);
+}
+
+void ft_exit_ps(t_stacks **stack_a, t_stacks **stack_b, char *str, int err)
+{
+	if (stack_a)
+		ft_lstclear_ps(stack_a);
+	if (stack_b)
+		ft_lstclear_ps(stack_b);
+	if (err == 1)
+		ft_putstr_fd(str, 2);
+	exit(err);
+}
+
+void ft_exit_ps_simple(char *str, int err)
+{
+	if (err == -1)
+		ft_putstr_fd(str, 2);
+	exit(err);
+}

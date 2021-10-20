@@ -1,87 +1,55 @@
-#include "../push_swap.h"
+#include "./push_swap.h"
 
-void	swap(t_stack *stack)
+void swap(t_stacks **stack)
 {
 	int temp;
 
-	if (stack->numbers_a[1] != -1)
-	{
-		temp = stack->numbers_a[0];
-		stack->numbers_a[0] = stack->numbers_a[1];
-		stack->numbers_a[1] = temp;
-	}
+	temp = (*stack)->number;
+	(*stack)->number = (*stack)->next->number;
+	(*stack)->next->number = temp;
 }
 
-void	rotate(t_stack *stack)
+void reverse_rotate(t_stacks **stack)
 {
-	int	temp;
+	t_stacks *tmp;
+	t_stacks *new_head;
+	int size;
 	int i;
 
-	temp = stack->numbers_a[0];
+	size = ft_lstsize_ps(*stack);
+	if (!size || size == 1)
+		return;
+	tmp = *stack;
 	i = 0;
-	while(i < stack->size - 1)
-	{
-		stack->numbers_a[i] = stack->numbers_a[i + 1];
-		i++;
-	}
-	stack->numbers_a[i] = temp;
+	while (++i < size - 1)
+		tmp = tmp->next;
+	new_head = tmp->next;
+	tmp->next = NULL;
+	new_head->next = *stack;
+	*stack = new_head;
 }
 
-void	reverse_rotate(t_stack *stack)
+void rotate(t_stacks **stack)
 {
-	int temp;
-	int i;
+	t_stacks *tmp;
+	t_stacks *new_head;
+	int size;
 
-	i = stack->size - 1;
-	temp = stack->numbers_a[i];
-	while(i)
-	{
-		stack->numbers_a[i] = stack->numbers_a[i - 1];
-		i--;
-	}
-	stack->numbers_a[0] = temp;
+	new_head = (*stack)->next;
+	tmp = *stack;
+	*stack = new_head;
+	tmp->next = NULL;
+	ft_lstadd_back_ps(stack, tmp);
 }
 
-void	push_to_a(t_stack *stack)
+void push(t_stacks **src, t_stacks **dest)
 {
-	int	temp;
-	int	i;
+	t_stacks *tmp;
 
-	i = stack->size + 1;
-	while (i)
-	{
-		stack->numbers_a[i] = stack->numbers_a[i - 1];
-		i--;
-	}
-	stack->numbers_a[0] = stack->numbers_b[0];
-	i = 0;
-	while (i < stack->size - 1)
-	{
-		stack->numbers_b[i] = stack->numbers_b[i + 1];
-		i++;
-	}
-	stack->numbers_b[i] = -1;
-	printf("\npush to a\n");
-}
-
-void	push_to_b(t_stack *stack)
-{
-	int	temp;
-	int	i;
-
-	i = stack->size + 1;
-	while (i)
-	{
-		stack->numbers_b[i] = stack->numbers_b[i - 1];
-		i--;
-	}
-	stack->numbers_b[0] = stack->numbers_a[0];
-	i = 0;
-	while (i < stack->size - 1)
-	{
-		stack->numbers_a[i] = stack->numbers_a[i + 1];
-		i++;
-	}
-	stack->numbers_a[i] = -1;
-	printf("\npush to b\n");
+	tmp = *src;
+	if (!tmp)
+		return;
+	*src = tmp->next;
+	tmp->next = 0;
+	ft_lstadd_front_ps(dest, tmp);
 }
