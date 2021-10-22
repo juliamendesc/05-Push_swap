@@ -58,3 +58,18 @@ int get_max(t_stacks *stack)
 	}
 	return (max);
 }
+
+int pos_finder(t_stacks *stack, int pos, int small)
+{
+	int i;
+
+	i = -1;
+	while (stack)
+	{
+		i++;
+		if (small == stack->number)
+			pos = i;
+		stack = stack->next;
+	}
+	return (pos);
+}
