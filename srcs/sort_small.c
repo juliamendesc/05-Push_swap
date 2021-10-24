@@ -26,13 +26,9 @@ void push_min_to_b(t_stacks **stack_a, t_stacks **stack_b)
 	while ((*stack_a)->number != minimum)
 	{
 		if ((*stack_a)->number != minimum && (*stack_a)->next->number != minimum)
-		{
 			rra(stack_a);
-		}
 		else
-		{
 			ra(stack_a);
-		}
 	}
 	pb(stack_a, stack_b);
 }

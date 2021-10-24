@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	if (ft_lstsize_ps(stack_a) <= 5)
 		sort_three_to_five(&stack_a, &stack_b);
 	if (ft_lstsize_ps(stack_a) > 5)
-		sort_medium(&stack_a, &stack_b);
+		sort_big(&stack_a, &stack_b);
 	lst_print("stack a\n", stack_a);
 	lst_print("stack b\n", stack_b);
 	ft_lstclear_ps(&stack_a);
