@@ -71,5 +71,16 @@ void split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks);
 void rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks);
 void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks);
 void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks);
+int get_pivot(t_stacks *stack);
+void sort_low_efficient(t_stacks *sorted);
+int divide_stack_b(t_stacks **stack_a, t_stacks **stack_b);
+int divide_stack(t_stacks **src, t_stacks **dest,
+								 void (*p)(t_stacks **, t_stacks **), void (*r)(t_stacks **), int pivot);
+int smaller_equal(t_stacks *src, int pivot);
+void algorithm(t_stacks **stack_a, t_stacks **stack_b);
+t_stacks *ft_lstlast_ps(t_stacks *lst);
+int is_all_big_equal_than(t_stacks *stack, int number);
+void rotate_top(t_stacks **stack, int number,
+								void (*r)(t_stacks **), void (*rr)(t_stacks **));
 
 #endif

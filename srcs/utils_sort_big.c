@@ -1,4 +1,4 @@
-#include "./push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 ** This function will grab the median of 'stack_a' between the first two chunks

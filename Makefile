@@ -35,15 +35,13 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(SRCS)
-	@ $(CC) $(D_FLAG) $(CFLAG) $(SRCS) $(LIBFT) $(INC) -o push_swap
+$(NAME):
+	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
+	@ $(CC) $(CFLAG) $(D_FLAG) $(SRCS) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(GREEN)push_swap created.\n"
 
 checker: $(LIBFT) $(SRCS)
 	@ $(CC) $(D_FLAG) $(CFLAG) $(CHECKER_SRC) $(SRCS) -o checker
-
-$(LIBFT):
-	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
 
 clean:
 	@ $(RM) $(NAME)

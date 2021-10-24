@@ -1,4 +1,4 @@
-#include "./push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 ** This function sorts stacks of size bigger than 5. The algorithm in two different
