@@ -51,15 +51,15 @@ int error_handling(int size, char **argv)
 
 	i = -1;
 	if (size < 1)
-		ft_exit_ps_simple("Wrong number of arguments.\nPlease use: ./push_swap \"list of numbers\"\n", -1);
+		ft_exit_ps_simple("", -1);
 	while (++i < size)
 	{
 		if (ft_atoll(argv[i]) > 2147483647 || ft_atoll(argv[i]) < -2147483648)
-			ft_exit_ps_simple("Numbers out of integer range\n", -1);
+			ft_exit_ps_simple("Error\n", -1);
 		if (ft_isstringdigit(argv[i]) == 0)
-			ft_exit_ps_simple("Numbers have to be a digit\n", -1);
+			ft_exit_ps_simple("Error\n", -1);
 	}
 	if (duplicate_validation(argv, size) == 1)
-		ft_exit_ps_simple("There cannot be duplicate numbers\n", -1);
+		ft_exit_ps_simple("Error\n", -1);
 	return (0);
 }

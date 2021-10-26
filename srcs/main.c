@@ -20,8 +20,8 @@ int main(int argc, char **argv)
 			sort_big(&stack_a, &stack_b, &chunks, 0);
 		}
 	}
-	lst_print("stack a ", stack_a);
-	lst_print("stack b ", stack_b);
+	// lst_print("stack a ", stack_a);
+	// lst_print("stack b ", stack_b);
 	ft_lstclear_ps(&stack_a);
 	ft_lstclear_ps(&stack_b);
 }
