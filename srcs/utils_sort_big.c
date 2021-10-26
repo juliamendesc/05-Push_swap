@@ -1,17 +1,43 @@
 #include "../includes/push_swap.h"
 
 /*
+** This function takes a stack - 'stack_a' and counts its numbers in between the
+** first two elements of the stack 'chunks'.
+**
+** @param	t_stack	*stack_a	- stack to count numbers from.
+**
+** @param	t_stack	**chunks	- helper stack to know the chunks of stack_a.
+**
+** @return
+** 		- The count_in_between() function returns the number of elements in
+** 		between 'chunks's' first two elements that exist in stack_a.
+*/
+int count_in_between(t_stacks *stack_a, t_stacks *chunks)
+{
+	t_stacks *duplicate;
+	int max_idx;
+	int min_idx;
+
+	duplicate = ft_lstdup_ps(stack_a);
+	ft_stack_sort(&duplicate);
+	min_idx = ft_stack_find(duplicate, chunks->number);
+	max_idx = ft_stack_find(duplicate, chunks->next->number);
+	ft_lstclear_ps(&duplicate);
+	return (max_idx - min_idx + 1);
+}
+
+/*
 ** This function will grab the median of 'stack_a' between the first two chunks
 ** of the stack 'chunks' and add it to 'chunks'.
 **
-** @line 57	The get_new_limit() function starts by creating a duplicated
-** 				stack of 'stack_a' - 'dup'; and sorting that stack -
-** 				'dup' will be a sorted version 'stack_a'.
+** @line 72-73	The get_new_limit() function starts by creating a duplicated
+** 				stack of 'stack_a' - 'duplicate'; and sorting that stack -
+** 				'duplicate' will be a sorted version 'stack_a'.
 **
-** @line 59-64	the function will then try to find the index in duplicate of the
+** @line 74-75	the function will then try to find the index in duplicate of the
 ** 				first element of 'chunks' - min_idx; the same happens to
 ** 				'max_idx' - the index of the second element of 'chunks' in
-** 				'dup'.
+** 				'duplicate'.
 **
 ** @line 76		after that it is possible to find the index of the median
 ** 				element of max_idx and min_idx. The calculations are:
@@ -23,26 +49,26 @@
 ** @line 77-78	new is added to chunks and chunks is sorted so that it contains
 ** 				all the partitions of stack_a in order.
 */
-void get_new_chunk(t_stacks **chunks, t_stacks *stack_a, int status)
+void get_new_chunk(t_stacks **chunks, t_stacks *stack, int status)
 {
-	t_stacks *dup;
-	int min_index;
-	int max_index;
+	t_stacks *duplicate;
+	int min_idx;
+	int max_idx;
 	int new;
 
-	dup = ft_lstdup_ps(stack_a);
-	ft_stack_sort(chunks);
+	duplicate = ft_lstdup_ps(stack);
+	ft_stack_sort(&duplicate);
 	if (status)
 	{
-		min_index = ft_stack_find(dup, (*chunks)->number);
-		max_index = ft_stack_find(dup, (*chunks)->next->number);
-		new = ft_stack_get_position(dup, ((max_index - min_index) / 2 + min_index + 3));
+		min_idx = ft_stack_find(duplicate, (*chunks)->number);
+		max_idx = ft_stack_find(duplicate, (*chunks)->next->number);
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx + 3));
 	}
 	else
-		new = ft_stack_get_position(dup, ft_lstsize_ps(dup) / 2);
+		new = ft_stack_get(duplicate, ft_lstsize_ps(duplicate) / 2);
 	ft_lstadd_front_ps(chunks, ft_lstnew_ps(new));
 	ft_stack_sort(chunks);
-	ft_lstclear_ps(&dup);
+	ft_lstclear_ps(&duplicate);
 }
 
 /*
@@ -80,7 +106,7 @@ void split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 	int size;
 	int first;
 
-	size = count_middle(*stack_a, chunks);
+	size = count_in_between(*stack_a, chunks);
 	while (ft_lstsize_ps(*stack_b) < size)
 	{
 		first = get_hold_first(*stack_a, chunks);
@@ -88,6 +114,38 @@ void split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 			ra(stack_a);
 		pb(stack_a, stack_b);
 	}
+}
+
+/*
+** This function iterates stack_a, from the top and finds the first number with
+** values between the first and the second number in 'chunks'.
+**
+** @param	t_stack	*stack_a	- This stack will be iterated in order o find
+** 								the position of the first number between
+** 								'chunks'.
+** @param	t_stack	*chunks		- this stack will serve as the chunks to find
+** 								the number in 'stack_a'.
+**
+** This function returns the extimated number or "ra" instructions necessary for
+** the number found in stack_a to be on top.
+*/
+int get_hold_first(t_stacks *stack_a, t_stacks *chunks)
+{
+	int first;
+	int max;
+	int min;
+
+	min = chunks->number;
+	max = chunks->next->number;
+	first = 0;
+	while (stack_a)
+	{
+		if (stack_a->number >= min && stack_a->number <= max)
+			return (first);
+		first++;
+		stack_a = stack_a->next;
+	}
+	return (first);
 }
 
 /*
@@ -108,7 +166,8 @@ void rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 	duplicate = ft_lstdup_ps(*stack_a);
 	ft_lstadd_front_ps(&duplicate, ft_lstnew_ps(chunks->number));
 	ft_stack_sort(&duplicate);
-	num = ft_stack_get_position(duplicate, ft_stack_find(duplicate, chunks->number) - 1);
+	num = ft_stack_get(duplicate, ft_stack_find(duplicate, chunks->number) - 1);
+	printf("num %d\n", num);
 	ft_lstclear_ps(&duplicate);
 	index = ft_stack_find(*stack_a, num);
 	if (num == -2147483648 || index == -2147483648)
@@ -172,6 +231,8 @@ void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 	t_stacks *duplicate;
 
 	duplicate = ft_lstdup_ps(*stack_b);
+	if (!duplicate)
+		return;
 	ft_stack_sort(&duplicate);
 	while (ft_lstsize_ps(*stack_b))
 	{
@@ -193,4 +254,43 @@ void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 		ra(stack_a);
 	chunks->next->number = get_next_value(*stack_a, &chunks);
 	ft_lstclear_ps(&duplicate);
+}
+
+/*
+** This function is a helper function of merge_sort_to_a() function. It will
+** return the minimum number of stack_a that is not sorted, as the new limit.
+**
+** 		example:
+** 			chunks: {12, 25, 50, 100}
+** 			stack_a: [1, 12] sorted
+** 					]12, 100] unsorted
+** 			new chunks: {13, 25, 50, 100}
+**
+** @param	t_stack	*stack_a	- stack to get the new limit from.
+**
+** @param	t_stack	**chunks	- stack that contains the old limit.
+**
+** @return
+** 		- the get_next_value() function returns the new chunks to be added to
+** 		'chunks' later in merge_sort_to_a() function.
+*/
+int get_next_value(t_stacks *stack_a, t_stacks **chunks)
+{
+	t_stacks *duplicate;
+	int position;
+	int minimum;
+
+	duplicate = ft_lstdup_ps(stack_a);
+	ft_stack_sort(&duplicate);
+	position = ft_stack_find(duplicate, (*chunks)->next->number);
+	minimum = ft_stack_get(duplicate, position);
+	if (minimum == ft_stack_last(duplicate)->number)
+	{
+		ft_lstclear_ps(&duplicate);
+		return (minimum);
+	}
+	else
+		minimum = ft_stack_get(duplicate, position + 1);
+	ft_lstclear_ps(&duplicate);
+	return (minimum);
 }
