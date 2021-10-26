@@ -167,7 +167,6 @@ void rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 	ft_lstadd_front_ps(&duplicate, ft_lstnew_ps(chunks->number));
 	ft_stack_sort(&duplicate);
 	num = ft_stack_get(duplicate, ft_stack_find(duplicate, chunks->number) - 1);
-	printf("num %d\n", num);
 	ft_lstclear_ps(&duplicate);
 	index = ft_stack_find(*stack_a, num);
 	if (num == -2147483648 || index == -2147483648)
@@ -253,6 +252,8 @@ void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 	while (ft_stack_last(*stack_a)->number != chunks->next->number)
 		ra(stack_a);
 	chunks->next->number = get_next_value(*stack_a, &chunks);
+	while (duplicate->previous != NULL)
+		duplicate = duplicate->previous;
 	ft_lstclear_ps(&duplicate);
 }
 
