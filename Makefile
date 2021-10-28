@@ -13,7 +13,7 @@ CHECKER_SRC =
 
 # Compiling Variables #
 CC			=	gcc
-CFLAG		=	#-Wall -Wextra -Werror
+CFLAG		=	-Wall -Wextra -Werror
 RM			=	rm -f
 
 # Colors #

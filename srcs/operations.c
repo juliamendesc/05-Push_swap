@@ -33,7 +33,6 @@ void rotate(t_stacks **stack)
 {
 	t_stacks *tmp;
 	t_stacks *new_head;
-	int size;
 
 	new_head = (*stack)->next;
 	tmp = *stack;
