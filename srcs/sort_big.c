@@ -1,13 +1,15 @@
 #include "../includes/push_swap.h"
 
-void sort_big(t_stacks **stack_a, t_stacks **stack_b, t_stacks **chunks, int i)
+void	sort_big(t_stacks **stack_a, t_stacks **stack_b,
+			t_stacks **chunks, int i)
 {
 	if (ft_lstsize_ps(*chunks) == 1)
 	{
 		ft_lstclear_ps(chunks);
-		return;
+		return ;
 	}
-	if (ft_lstsize_ps(*chunks) == 2 && count_in_between(*stack_a, *chunks) >= MAX_SIZE)
+	if (ft_lstsize_ps(*chunks) == 2
+		&& count_in_between(*stack_a, *chunks) >= MAX_SIZE)
 		get_new_chunk(chunks, *stack_a, 1);
 	if (!ft_lstsize_ps(*stack_b))
 	{

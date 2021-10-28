@@ -1,8 +1,8 @@
 #include "../includes/push_swap.h"
 
-int is_sorted(t_stacks *stack)
+int	is_sorted(t_stacks *stack)
 {
-	t_stacks *current;
+	t_stacks	*current;
 
 	current = stack;
 	while (current->next)
@@ -15,11 +15,11 @@ int is_sorted(t_stacks *stack)
 	return (1);
 }
 
-int get_min(t_stacks *stack)
+int	get_min(t_stacks *stack)
 {
-	t_stacks *current;
-	int trigger;
-	int min;
+	t_stacks	*current;
+	int			trigger;
+	int			min;
 
 	current = stack;
 	trigger = 1;
@@ -37,11 +37,11 @@ int get_min(t_stacks *stack)
 	return (min);
 }
 
-int get_max(t_stacks *stack)
+int	get_max(t_stacks *stack)
 {
-	t_stacks *current;
-	int trigger;
-	int max;
+	t_stacks	*current;
+	int			trigger;
+	int			max;
 
 	current = stack;
 	trigger = 1;
@@ -59,9 +59,9 @@ int get_max(t_stacks *stack)
 	return (max);
 }
 
-int pos_finder(t_stacks *stack, int pos, int small)
+int	pos_finder(t_stacks *stack, int pos, int small)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (stack)

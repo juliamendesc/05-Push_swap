@@ -1,10 +1,10 @@
 #include "../includes/push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_stacks *stack_a;
-	t_stacks *stack_b;
-	t_stacks *chunks;
+	t_stacks	*stack_a;
+	t_stacks	*stack_b;
+	t_stacks	*chunks;
 
 	if (error_handling(argc - 1, argv + 1) == 1)
 		ft_exit_ps_simple("Error\n", -1);
@@ -20,8 +20,6 @@ int main(int argc, char **argv)
 			sort_big(&stack_a, &stack_b, &chunks, 0);
 		}
 	}
-	// lst_print("stack a ", stack_a);
-	// lst_print("stack b ", stack_b);
 	ft_lstclear_ps(&stack_a);
 	ft_lstclear_ps(&stack_b);
 }
