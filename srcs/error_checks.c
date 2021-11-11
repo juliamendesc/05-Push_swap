@@ -1,9 +1,9 @@
 #include "../includes/push_swap.h"
 
-int	is_duplicate(int *array, int size)
+int is_duplicate(int *array, int size)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < size)
@@ -20,11 +20,11 @@ int	is_duplicate(int *array, int size)
 	return (0);
 }
 
-int	duplicate_validation(char **args, int size)
+int duplicate_validation(char **args, int size)
 {
-	int	*array;
-	int	i;
-	int	f;
+	int *array;
+	int i;
+	int f;
 
 	array = malloc(sizeof(int) * size);
 	i = -1;
@@ -45,9 +45,9 @@ int	duplicate_validation(char **args, int size)
 ** all arguments must be numbers written with digits;
 */
 
-int	error_handling(int size, char **argv)
+int error_handling(int size, char **argv)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	if (size < 1)
@@ -56,7 +56,7 @@ int	error_handling(int size, char **argv)
 	{
 		if (ft_atoll(argv[i]) > 2147483647 || ft_atoll(argv[i]) < -2147483648)
 			ft_exit_ps_simple("Error\n", -1);
-		if (ft_isstringdigit(argv[i]) == 0)
+		if (ft_isallstringdigit(argv[i]) == 0)
 			ft_exit_ps_simple("Error\n", -1);
 	}
 	if (duplicate_validation(argv, size) == 1)

@@ -12,11 +12,11 @@
 ** 		- The count_in_between() function returns the number of elements in
 ** 		between 'chunks's' first two elements that exist in stack_a.
 */
-int	count_in_between(t_stacks *stack_a, t_stacks *chunks)
+int count_in_between(t_stacks *stack_a, t_stacks *chunks)
 {
-	t_stacks	*duplicate;
-	int			max_idx;
-	int			min_idx;
+	t_stacks *duplicate;
+	int max_idx;
+	int min_idx;
 
 	duplicate = ft_lstdup_ps(stack_a);
 	ft_stack_sort(&duplicate);
@@ -49,12 +49,12 @@ int	count_in_between(t_stacks *stack_a, t_stacks *chunks)
 ** @line 77-78	new is added to chunks and chunks is sorted so that it contains
 ** 				all the partitions of stack_a in order.
 */
-void	get_new_chunk(t_stacks **chunks, t_stacks *stack, int status)
+void get_new_chunk(t_stacks **chunks, t_stacks *stack, int status)
 {
-	t_stacks	*duplicate;
-	int			min_idx;
-	int			max_idx;
-	int			new;
+	t_stacks *duplicate;
+	int min_idx;
+	int max_idx;
+	int new;
 
 	duplicate = ft_lstdup_ps(stack);
 	ft_stack_sort(&duplicate);
@@ -101,10 +101,10 @@ void	get_new_chunk(t_stacks **chunks, t_stacks *stack, int status)
 ** 		stack_b: [14, 25] unsorted
 **
 */
-void	split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
+void split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 {
-	int	size;
-	int	first;
+	int size;
+	int first;
 
 	size = count_in_between(*stack_a, chunks);
 	while (ft_lstsize_ps(*stack_b) < size)
@@ -129,11 +129,11 @@ void	split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
 ** This function returns the extimated number or "ra" instructions necessary for
 ** the number found in stack_a to be on top.
 */
-int	get_hold_first(t_stacks *stack_a, t_stacks *chunks)
+int get_hold_first(t_stacks *stack_a, t_stacks *chunks)
 {
-	int	first;
-	int	max;
-	int	min;
+	int first;
+	int max;
+	int min;
 
 	min = chunks->number;
 	max = chunks->next->number;
@@ -157,11 +157,11 @@ int	get_hold_first(t_stacks *stack_a, t_stacks *chunks)
 ** @param	t_stack	**chunks	- helper stack to know values of stack_a that
 ** 								are sorted.
 */
-void	rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
+void rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 {
-	t_stacks	*duplicate;
-	int			num;
-	int			index;
+	t_stacks *duplicate;
+	int num;
+	int index;
 
 	duplicate = ft_lstdup_ps(*stack_a);
 	ft_lstadd_front_ps(&duplicate, ft_lstnew_ps(chunks->number));
@@ -170,7 +170,7 @@ void	rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 	ft_lstclear_ps(&duplicate);
 	index = ft_stack_find(*stack_a, num);
 	if (num == -2147483648 || index == -2147483648)
-		return ;
+		return;
 	if (index <= ft_lstsize_ps(*stack_a) / 2)
 		while (ft_stack_last(*stack_a)->number != num)
 			ra(stack_a);
