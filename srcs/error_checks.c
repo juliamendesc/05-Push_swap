@@ -56,7 +56,7 @@ int	error_handling(int size, char **argv)
 	{
 		if (ft_atoll(argv[i]) > 2147483647 || ft_atoll(argv[i]) < -2147483648)
 			ft_exit_ps_simple("Error\n", -1);
-		if (ft_isstringdigit(argv[i]) == 0)
+		if (ft_isallstringdigit(argv[i]) == 0)
 			ft_exit_ps_simple("Error\n", -1);
 	}
 	if (duplicate_validation(argv, size) == 1)
