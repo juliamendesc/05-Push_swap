@@ -13,7 +13,7 @@
 #include "../includes/push_swap.h"
 
 void sort_big(t_stacks **stack_a, t_stacks **stack_b,
-							t_stacks **chunks, int i)
+			  t_stacks **chunks, int i)
 {
 	int len_chunks;
 	int len_stack_b;
@@ -21,7 +21,10 @@ void sort_big(t_stacks **stack_a, t_stacks **stack_b,
 	len_chunks = ft_lstsize_ps(*chunks);
 	len_stack_b = ft_lstsize_ps(*stack_b);
 	if (len_chunks == 1)
-		clear_and_exit(chunks);
+	{
+		ft_lstclear_ps(chunks);
+		return;
+	}
 	if (len_chunks == 2 && get_chunk_difference(*stack_a, *chunks) >= MAX_SIZE)
 		get_new_chunk_from_median(chunks, *stack_a, 1);
 	if (!len_stack_b)
@@ -50,7 +53,7 @@ void sort_big(t_stacks **stack_a, t_stacks **stack_b,
 */
 
 void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
-										 t_stacks *chunks)
+					 t_stacks *chunks)
 {
 	get_new_chunk_from_median(&chunks, *stack_b, 0);
 	while (ft_stack_has_bigger(*stack_b, chunks->next->number))
@@ -83,7 +86,7 @@ void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
 */
 
 void merge_sort_to_a_helper(t_stacks **stack_a, t_stacks **stack_b,
-														t_stacks *dup)
+							t_stacks *dup)
 {
 	if ((*stack_b)->number == dup->number)
 	{
@@ -109,7 +112,7 @@ void merge_sort_to_a_helper(t_stacks **stack_a, t_stacks **stack_b,
 ** Lastly, we go back to the head of the duplicate stack b.
 */
 void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b,
-										 t_stacks *chunks)
+					 t_stacks *chunks)
 {
 	t_stacks *dup;
 
