@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 18:50:16 by julcarva          #+#    #+#             */
+/*   Updated: 2021/11/13 18:50:53 by julcarva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -67,7 +79,8 @@ int		get_max(t_stacks *stack);
 int		get_chunk_difference(t_stacks *stack_a, t_stacks *chunks);
 int		get_next_value(t_stacks *stack_a, t_stacks **chunks);
 int		get_number_in_chunk(t_stacks *stack_a, t_stacks *chunks);
-void	get_new_chunk_from_median(t_stacks **chunks, t_stacks *stack, int status);
+void	get_new_chunk_from_median(t_stacks **chunks,
+			t_stacks *stack, int status);
 void	split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks);
 void	rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks);
 void	merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,

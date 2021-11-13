@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_sort_big.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 18:42:24 by julcarva          #+#    #+#             */
+/*   Updated: 2021/11/13 18:52:28 by julcarva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 /*
@@ -19,17 +31,19 @@ int	get_chunk_difference(t_stacks *stack_a, t_stacks *chunks)
 	ft_lstclear_ps(&dup);
 	return (max_idx - min_idx + 1);
 }
-
 /*
-** This function will act differently if called when control is 1 (when 
-** chunks has 2 items and the differences between indexes is bigger than 20 - which
-** means the chunk is too big to be sorted efficiently and we should look for a new
-** one) or when control is 0 (when a chunk is sorted and ready to be merged to 
-** stack a, thus a chunk is needed for merging). We add +1 in the end to guarantee 
+** This function will act differently if called when control
+** is 1 (when chunks has 2 items and the differences between 
+** indexes is bigger than 20 - which means the chunk is too
+** big to be sorted efficiently and we should look for a new
+** one) or when control is 0 (when a chunk is sorted and 
+** ready to be merged to stack a, thus a chunk is needed for 
+** merging). We add +1 in the end to guarantee 
 ** we will include the max_index.
-** The median
 */
-void	get_new_chunk_from_median(t_stacks **chunks, t_stacks *stack, int control)
+
+void	get_new_chunk_from_median(t_stacks **chunks,
+		t_stacks *stack, int control)
 {
 	t_stacks	*dup;
 	int			min_idx;
@@ -42,7 +56,8 @@ void	get_new_chunk_from_median(t_stacks **chunks, t_stacks *stack, int control)
 	{
 		min_idx = ft_stack_find_index(dup, (*chunks)->number);
 		max_idx = ft_stack_find_index(dup, (*chunks)->next->number);
-		new = ft_stack_get_position(dup, (min_idx + ((max_idx - min_idx) / 2) + 1));
+		new = ft_stack_get_position(dup,
+				(min_idx + ((max_idx - min_idx) / 2) + 1));
 	}
 	else
 		new = ft_stack_get_position(dup, ft_lstsize_ps(dup) / 2);
@@ -56,7 +71,9 @@ void	get_new_chunk_from_median(t_stacks **chunks, t_stacks *stack, int control)
 ** Stack b will have only the numbers in the chunks' range. 
 ** Numbers bigger than max_idx and min_idx will remain in stack a.
 */
-void	split_a_to_b(t_stacks **stack_a, t_stacks **stack_b, t_stacks *chunks)
+
+void	split_a_to_b(t_stacks **stack_a,
+		t_stacks **stack_b, t_stacks *chunks)
 {
 	int	size;
 	int	first;
@@ -120,7 +137,8 @@ void	rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 	dup = ft_lstdup_ps(*stack_a);
 	ft_lstadd_front_ps(&dup, ft_lstnew_ps(chunks->number));
 	ft_stack_sort(&dup);
-	num = ft_stack_get_position(dup, ft_stack_find_index(dup, chunks->number) - 1);
+	num = ft_stack_get_position(dup,
+			ft_stack_find_index(dup, chunks->number) - 1);
 	ft_lstclear_ps(&dup);
 	index = ft_stack_find_index(*stack_a, num);
 	half = ft_lstsize_ps(*stack_a) / 2;
