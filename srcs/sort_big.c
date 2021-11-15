@@ -6,33 +6,28 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:48:51 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/13 18:48:53 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/15 15:34:38 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void sort_big(t_stacks **stack_a, t_stacks **stack_b,
-			  t_stacks **chunks, int i)
+void	sort_big(t_stacks **stack_a, t_stacks **stack_b,
+			t_stacks **chunks, int i)
 {
-	int len_chunks;
-	int len_stack_b;
-
-	len_chunks = ft_lstsize_ps(*chunks);
-	len_stack_b = ft_lstsize_ps(*stack_b);
-	if (len_chunks == 1)
+	if (ft_lstsize_ps(*chunks) == 1)
 	{
 		ft_lstclear_ps(chunks);
-		return;
+		return ;
 	}
-	if (len_chunks == 2 && get_chunk_difference(*stack_a, *chunks) >= MAX_SIZE)
+	if (ft_lstsize_ps(*chunks) == 2 && get_chunk_difference(*stack_a, *chunks) >= MAX_SIZE)
 		get_new_chunk_from_median(chunks, *stack_a, 1);
-	if (!len_stack_b)
+	if (!ft_lstsize_ps(*stack_b))
 	{
 		split_a_to_b(stack_a, stack_b, *chunks);
 		rotate_until_sorted(stack_a, *chunks);
 	}
-	if (len_stack_b >= MAX_SIZE)
+	if(ft_lstsize_ps(*stack_b) >= MAX_SIZE)
 		merge_half_to_a(stack_a, stack_b, *chunks);
 	else
 	{
@@ -52,8 +47,8 @@ void sort_big(t_stacks **stack_a, t_stacks **stack_b,
 ** back to stack a. If no conditions are met at this point, stack b is rotated.
 */
 
-void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
-					 t_stacks *chunks)
+void	merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
+			t_stacks *chunks)
 {
 	get_new_chunk_from_median(&chunks, *stack_b, 0);
 	while (ft_stack_has_bigger(*stack_b, chunks->next->number))
@@ -61,7 +56,8 @@ void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
 		if ((*stack_b)->number == get_min(*stack_b))
 		{
 			pa(stack_a, stack_b);
-			if ((*stack_b)->number != get_min(*stack_b) && (*stack_b)->number <= chunks->next->number)
+			if ((*stack_b)->number != get_min(*stack_b)
+				&& (*stack_b)->number <= chunks->next->number)
 				rr(stack_a, stack_b);
 			else
 				ra(stack_a);
@@ -85,14 +81,15 @@ void merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
 ** Lastly, if no conditions are met, stack b is rotated.
 */
 
-void merge_sort_to_a_helper(t_stacks **stack_a, t_stacks **stack_b,
-							t_stacks *dup)
+void	merge_sort_to_a_helper(t_stacks **stack_a, t_stacks **stack_b,
+			t_stacks *dup)
 {
 	if ((*stack_b)->number == dup->number)
 	{
 		pa(stack_a, stack_b);
 		dup = dup->next;
-		if (ft_lstsize_ps(*stack_b) && (*stack_b)->number != dup->number && (*stack_b)->number != get_max(*stack_b))
+		if (ft_lstsize_ps(*stack_b) && (*stack_b)->number != dup->number
+			&& (*stack_b)->number != get_max(*stack_b))
 			rr(stack_a, stack_b);
 		else
 			ra(stack_a);
@@ -111,14 +108,14 @@ void merge_sort_to_a_helper(t_stacks **stack_a, t_stacks **stack_b,
 ** a new max number for the range.
 ** Lastly, we go back to the head of the duplicate stack b.
 */
-void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b,
-					 t_stacks *chunks)
+void	merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b,
+			t_stacks *chunks)
 {
-	t_stacks *dup;
+	t_stacks	*dup;
 
 	dup = ft_lstdup_ps(*stack_b);
 	if (!dup)
-		return;
+		return ;
 	ft_stack_sort(&dup);
 	while (ft_lstsize_ps(*stack_b))
 		merge_sort_to_a_helper(stack_a, stack_b, dup);
@@ -136,11 +133,11 @@ void merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b,
 ** it clears aand return, or it gets the next number to become the newer
 ** maximum index of the chunk.
 */
-int get_next_value(t_stacks *stack_a, t_stacks **chunks)
+int	get_next_value(t_stacks *stack_a, t_stacks **chunks)
 {
-	t_stacks *dup;
-	int index;
-	int max;
+	t_stacks	*dup;
+	int			index;
+	int			max;
 
 	dup = ft_lstdup_ps(stack_a);
 	ft_stack_sort(&dup);
