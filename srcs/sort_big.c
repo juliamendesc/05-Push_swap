@@ -6,7 +6,7 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:48:51 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/15 15:34:38 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:04:38 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ void	sort_big(t_stacks **stack_a, t_stacks **stack_b,
 		ft_lstclear_ps(chunks);
 		return ;
 	}
-	if (ft_lstsize_ps(*chunks) == 2 && get_chunk_difference(*stack_a, *chunks) >= MAX_SIZE)
+	if (ft_lstsize_ps(*chunks) == 2
+		&& get_chunk_difference(*stack_a, *chunks) >= MAX_SIZE)
 		get_new_chunk_from_median(chunks, *stack_a, 1);
 	if (!ft_lstsize_ps(*stack_b))
 	{
 		split_a_to_b(stack_a, stack_b, *chunks);
 		rotate_until_sorted(stack_a, *chunks);
 	}
-	if(ft_lstsize_ps(*stack_b) >= MAX_SIZE)
+	if (ft_lstsize_ps(*stack_b) >= MAX_SIZE)
 		merge_half_to_a(stack_a, stack_b, *chunks);
 	else
 	{

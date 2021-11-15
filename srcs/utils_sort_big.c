@@ -6,7 +6,7 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:42:24 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/13 18:52:28 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:03:16 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 ** We return the difference between indexes + 1 (given than the 1st is 0).
 */
 
-int get_chunk_difference(t_stacks *stack_a, t_stacks *chunks)
+int	get_chunk_difference(t_stacks *stack_a, t_stacks *chunks)
 {
-	t_stacks *dup;
-	int max_idx;
-	int min_idx;
+	t_stacks	*dup;
+	int			max_idx;
+	int			min_idx;
 
 	dup = ft_lstdup_ps(stack_a);
 	ft_stack_sort(&dup);
@@ -42,13 +42,13 @@ int get_chunk_difference(t_stacks *stack_a, t_stacks *chunks)
 ** we will include the max_index.
 */
 
-void get_new_chunk_from_median(t_stacks **chunks,
-															 t_stacks *stack, int control)
+void	get_new_chunk_from_median(t_stacks **chunks,
+		t_stacks *stack, int control)
 {
-	t_stacks *dup;
-	int min_idx;
-	int max_idx;
-	int new;
+	t_stacks	*dup;
+	int			min_idx;
+	int			max_idx;
+	int			new;
 
 	dup = ft_lstdup_ps(stack);
 	ft_stack_sort(&dup);
@@ -57,7 +57,7 @@ void get_new_chunk_from_median(t_stacks **chunks,
 		min_idx = ft_stack_find_index(dup, (*chunks)->number);
 		max_idx = ft_stack_find_index(dup, (*chunks)->next->number);
 		new = ft_stack_get_position(dup,
-																(min_idx + ((max_idx - min_idx) / 2) + 1));
+				(min_idx + ((max_idx - min_idx) / 2) + 1));
 	}
 	else
 		new = ft_stack_get_position(dup, ft_lstsize_ps(dup) / 2);
@@ -72,12 +72,12 @@ void get_new_chunk_from_median(t_stacks **chunks,
 ** Numbers bigger than max_idx and min_idx will remain in stack a.
 */
 
-void split_a_to_b(t_stacks **stack_a,
-									t_stacks **stack_b, t_stacks *chunks)
+void	split_a_to_b(t_stacks **stack_a,
+		t_stacks **stack_b, t_stacks *chunks)
 {
-	int size;
-	int first;
-	int len;
+	int	size;
+	int	first;
+	int	len;
 
 	size = get_chunk_difference(*stack_a, chunks);
 	len = ft_lstsize_ps(*stack_b);
@@ -97,11 +97,11 @@ void split_a_to_b(t_stacks **stack_a,
 ** on top of stack a and then be pushed to stack b.
 */
 
-int get_number_in_chunk(t_stacks *stack_a, t_stacks *chunks)
+int	get_number_in_chunk(t_stacks *stack_a, t_stacks *chunks)
 {
-	int first;
-	int max;
-	int min;
+	int	first;
+	int	max;
+	int	min;
 
 	min = chunks->number;
 	max = chunks->next->number;
@@ -127,23 +127,23 @@ int get_number_in_chunk(t_stacks *stack_a, t_stacks *chunks)
 ** Else (number closer to bottom) it reverse rotates
 */
 
-void rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
+void	rotate_until_sorted(t_stacks **stack_a, t_stacks *chunks)
 {
-	t_stacks *dup;
-	int num;
-	int index;
-	int half;
+	t_stacks	*dup;
+	int			num;
+	int			index;
+	int			half;
 
 	dup = ft_lstdup_ps(*stack_a);
 	ft_lstadd_front_ps(&dup, ft_lstnew_ps(chunks->number));
 	ft_stack_sort(&dup);
 	num = ft_stack_get_position(dup,
-															ft_stack_find_index(dup, chunks->number) - 1);
+			ft_stack_find_index(dup, chunks->number) - 1);
 	ft_lstclear_ps(&dup);
 	index = ft_stack_find_index(*stack_a, num);
 	half = ft_lstsize_ps(*stack_a) / 2;
 	if (num == -2147483648 || index == -2147483648)
-		return;
+		return ;
 	if (index <= half)
 		while (ft_stack_last(*stack_a)->number != num)
 			ra(stack_a);
