@@ -18,7 +18,6 @@
 # include <string.h>
 # include <limits.h>
 # include <ctype.h>
-# include <stdio.h>
 # include "../libft/includes/libft.h"
 
 # ifndef MAX_SIZE
@@ -73,7 +72,6 @@ void	sort_big(t_stacks **stack_a, t_stacks **stack_b,
 **	Utils
 */
 
-void	clear_and_exit(t_stacks **stack);
 int		get_min(t_stacks *stack);
 int		get_max(t_stacks *stack);
 int		get_chunk_difference(t_stacks *stack_a, t_stacks *chunks);

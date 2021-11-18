@@ -6,7 +6,7 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:48:07 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/13 18:48:30 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/15 14:06:43 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,4 @@ int	get_max(t_stacks *stack)
 		current = current->next;
 	}
 	return (max);
-}
-
-void	clear_and_exit(t_stacks **stack)
-{
-	ft_lstclear_ps(stack);
-	return ;
 }

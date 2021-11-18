@@ -35,32 +35,16 @@ RESET		=	\e[0m
 _SUCCESS	=	[$(GREEN)SUCCESS$(RESET)]
 _INFO		=	[$(YELLOW)INFO$(RESET)]
 
-# Debugger #
-ifeq ($(DEBUG), 1)
-			D_FLAG	=	-g
-endif
-
-# Fsanitize #
-ifeq ($(SANITIZE), 1)
-			D_FLAG	=	-fsanitize=leak -g
-endif
-
 all: $(NAME)
 
 $(NAME):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
-	@ $(CC) $(CFLAG) $(D_FLAG) $(SRCS) $(INC) $(LIBFT) -o $(NAME)
+	@ $(CC) $(CFLAG) $(SRCS) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(GREEN)push_swap created.\n"
-
-checker: $(LIBFT) $(SRCS)
-	@ $(CC) $(D_FLAG) $(CFLAG) $(CHECKER_SRC) $(SRCS) -o checker
 
 clean:
 	@ $(RM) $(NAME)
 	@printf "$(_INFO) push_swap removed.\n"
-
-clean_checker:
-	rm ./checker
 
 fclean:
 	@ $(MAKE) fclean -C $(LIBFT_DIR)
@@ -68,8 +52,6 @@ fclean:
 	@printf "$(_INFO) push_swap removed.\n"
 
 re: fclean all
-
-re_checker: clean_checker checker
 
 mandatory:	$(NAME)
 bonus:		mandatory

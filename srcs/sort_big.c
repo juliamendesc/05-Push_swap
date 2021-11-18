@@ -6,7 +6,7 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:48:51 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/15 19:04:38 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:25:18 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_big(t_stacks **stack_a, t_stacks **stack_b,
 
 /*
 ** Pushes the numbers outside the chunk's range from stack b back to stack a
-** to be handled in the next chunk. This push happens while stack b has
+** to be handled in the next chunk. This push happens while stack b has 
 ** numbers out of range between the first and second chunk index number.
 ** Then, it compares if the numbers in stack b are different than its min
 ** and smaller or equal to the chunk's bigger limit. If so, it reverses rotate
@@ -73,12 +73,12 @@ void	merge_half_to_a(t_stacks **stack_a, t_stacks **stack_b,
 /*
 ** When sorting stack b, as soon as its number is equal to its sorted
 ** duplicate version, it is pushed to stack a and the list goes to the
-** next number in dup.
+** next number in dup. 
 ** If the numbers are different, the current number in stack b is different
 ** than the biggest number in stack b and there are other numbers in stack b,
 ** both stacks are reversely rotated. Else, both rotate at the same time.
 ** If the stack b number is equal to its maximum, it is pushed back to a (
-** numbers will be sorted back from the biggest to the smallest).
+** numbers will be sorted back from the biggest to the smallest). 
 ** Lastly, if no conditions are met, stack b is rotated.
 */
 
@@ -130,7 +130,7 @@ void	merge_sort_to_a(t_stacks **stack_a, t_stacks **stack_b,
 
 /*
 ** The function checks in which index of the sorted duplicate version of
-** stack a is to verify if the number is the last of the duplicate. If so,
+** stack a is to verify if the number is the last of the duplicate. If so, 
 ** it clears aand return, or it gets the next number to become the newer
 ** maximum index of the chunk.
 */

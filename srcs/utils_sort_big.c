@@ -6,7 +6,7 @@
 /*   By: julcarva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:42:24 by julcarva          #+#    #+#             */
-/*   Updated: 2021/11/15 19:03:16 by julcarva         ###   ########.fr       */
+/*   Updated: 2021/11/15 14:06:20 by julcarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ void	split_a_to_b(t_stacks **stack_a,
 {
 	int	size;
 	int	first;
-	int	len;
 
 	size = get_chunk_difference(*stack_a, chunks);
-	len = ft_lstsize_ps(*stack_b);
-	while (len < size)
+	while (ft_lstsize_ps(*stack_b) < size)
 	{
 		first = get_number_in_chunk(*stack_a, chunks);
 		while (first--)
